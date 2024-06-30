@@ -10,8 +10,7 @@ import { MOdifyProduct } from '../../Contexts/Modify'
 
 export const Modify = () => {
   let navigate = useNavigate()
-  let {setgetdata} = useContext(AllProduct)
-  let {getdata} = useContext(AllProduct)
+  let {setgetdata,getdata} = useContext(AllProduct)
   let {Modifyprod} = useContext(MOdifyProduct)
 let [dataform,setdataform] = useState({
   name : Modifyprod.tittle,

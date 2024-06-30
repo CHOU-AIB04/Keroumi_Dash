@@ -14,10 +14,8 @@ const Display = () => {
 
   // the getdata,setgetdata it's for updating the state for execute the code inside the useeffect
 
-  let {setgetdata} = useContext(AllProduct)
-  let {getdata} = useContext(AllProduct)
+  let {setgetdata,getdata,allproducts} = useContext(AllProduct)
   // this for display all products comming from the backend
-  let {allproducts} = useContext(AllProduct)
   let {setModifyprod} = useContext(MOdifyProduct)
   let navigate = useNavigate()
   // this function it's for delete a product after confirmation 

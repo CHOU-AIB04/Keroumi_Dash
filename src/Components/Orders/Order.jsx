@@ -17,7 +17,6 @@ const Order = () => {
   let navigate = useNavigate()
   const Getdetails = (id)=>{
     axios.get(`http://localhost:80/MY_PROJECTS/KeroumiDash/OrderDetails?item=${id}`).then((res)=>{
-      console.log(res.data)
       setGetOrderDetail(res.data)
       navigate("/OrderDetails");
     })
@@ -45,6 +44,7 @@ const Order = () => {
             <th className='border border-zinc-500 text-white font-bold text-center h-10'>Carte Nat</th>
             <th className='border border-zinc-500 text-white font-bold text-center h-10'>Date commande</th>
             <th className='border border-zinc-500 text-white font-bold text-center h-10'>Total</th>
+            <th className='border border-zinc-500 text-white font-bold text-center h-10'>Status</th>
             <th className='border border-zinc-500 text-white font-bold text-center h-10'>Order Details</th>
           </tr>
           { displayed_order.map(order=>{
@@ -56,11 +56,15 @@ const Order = () => {
               <td className='border border-zinc-500 text-white font-bold text-center h-12'>{order.Carte_Nat}</td>
               <td className='border border-zinc-500 text-white font-bold text-center h-12'>{order.date_commande}</td>
               <td className='border border-zinc-500 text-white font-bold text-center h-12'>{order.total}</td>
-              <td className='border border-zinc-500 text-white font-bold text-center h-12'><button className='w-28 md:w-36 h-7 rounded-md bg-orange-500 font-bold text-white' onClick={()=>Getdetails(order.Id)}>Details</button></td>
+              <td className={`border border-zinc-500 font-bold text-center h-12 ${order.Accepted == null ? "text-orange-500" : order.Accepted == 0 ? "text-red-500" : "text-green-500"}`}>{order.Accepted ==null ? "In Progress" : order.Accepted == 0 ? "Refused" : "Accepted"}</td>
+              <td className='border border-zinc-500 text-white font-bold text-center h-12 flex flex-col gap-1 items-center justify-center'>
+                <button className='w-24 md:w-28 h-5 text-sm rounded-md bg-orange-500 font-bold text-white' onClick={()=>Getdetails(order.Id)}>Details</button>
+                {
+                format_day === order.date_commande ? <button className='bg-green-500 w-[50px] rounded-md text-[12px] text-white'>Today</button> : ""
+                }
+              </td>
             
-              {
-                format_day === order.date_commande ? <button className='bg-green-500 w-[80px] rounded-md text-white'>Today</button> : ""
-              }
+             
               
           </tr>
           )

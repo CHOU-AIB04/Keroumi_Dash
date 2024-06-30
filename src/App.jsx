@@ -59,7 +59,10 @@ function App() {
   let [getorders,setgetorders] = useState(0);
   // this usestate to reexecute the useeffect that contain request for all product  if the value of this usestate is update it
   let [getdata,setgetdata] = useState(0)
-  let [allproducts,setALLproducts] = useState([])
+  let [allproducts,setALLproducts] = useState(()=>{
+    const data = JSON.parse(window.sessionStorage.getItem("DATA"))
+    return data ? data : []
+  })
   let [Modifyprod,setModifyprod] = useState([])
   let [Orders,setOrders] = useState([]);
   let [Messages,setMessages] = useState([])
@@ -77,7 +80,7 @@ useEffect(() => {
               axios.get("http://localhost:80/MY_PROJECTS/KeroumiDash/Contact"),
               axios.get("http://localhost:80/MY_PROJECTS/KeroumiDash/coaching")
           ]);
-
+          window.sessionStorage.setItem("DATA",JSON.stringify(productsRes.data))
           setALLproducts(productsRes.data);
           setOrders(ordersRes.data);
           setMessages(messagesRes.data);
